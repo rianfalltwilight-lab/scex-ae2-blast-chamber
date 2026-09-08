@@ -24,7 +24,7 @@ foreach ($entry in $manifest) {
         $argsList += @('--silent', '--show-error', '--fail', '--location', '--max-redirs', '5', '--connect-timeout', '10', '--speed-limit', '1024', '--speed-time', '30', '--max-time', '300', '--retry', '0', '--proto', '=https', '--proto-redir', '=https', '--output', $part, '--url', $entry.url)
         $curl = if ($IsWindows) { 'curl.exe' } else { 'curl' }
         $start = [Diagnostics.ProcessStartInfo]::new()
-        $start.FileName = (Get-Command $curl -CommandType Application).Source
+        $start.FileName = (Get-Command $curl -CommandType Application | Select-Object -First 1).Source
         $start.UseShellExecute = $false
         foreach ($argument in $argsList) { $start.ArgumentList.Add([string]$argument) }
         $process = [Diagnostics.Process]::Start($start)
