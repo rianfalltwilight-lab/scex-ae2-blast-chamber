@@ -20,11 +20,18 @@ foreach ($entry in $manifest) {
         $part = "$target.part"
         if (Test-Path -LiteralPath $part) { throw "Incomplete download exists: $part; inspect before retrying" }
         $argsList = @('--disable')
-        if (!$UseProxy) { $argsList += @('--noproxy', '*') }
-        $argsList += @('--fail', '--location', '--max-redirs', '5', '--connect-timeout', '10', '--speed-limit', '1024', '--speed-time', '30', '--max-time', '300', '--retry', '0', '--proto', '=https', '--proto-redir', '=https', '--output', $part, '--url', $entry.url)
+        if (!$UseProxy) { $argsList += @('--noproxy=*') }
+        $argsList += @('--silent', '--show-error', '--fail', '--location', '--max-redirs', '5', '--connect-timeout', '10', '--speed-limit', '1024', '--speed-time', '30', '--max-time', '300', '--retry', '0', '--proto', '=https', '--proto-redir', '=https', '--output', $part, '--url', $entry.url)
         $curl = if ($IsWindows) { 'curl.exe' } else { 'curl' }
-        & $curl @argsList
-        if ($LASTEXITCODE -ne 0) { throw "Download failed: $($entry.file). Partial file retained; proxy fallback requires -UseProxy." }
+        $start = [Diagnostics.ProcessStartInfo]::new()
+        $start.FileName = (Get-Command $curl -CommandType Application).Source
+        $start.UseShellExecute = $false
+        foreach ($argument in $argsList) { $start.ArgumentList.Add([string]$argument) }
+        $process = [Diagnostics.Process]::Start($start)
+        $process.WaitForExit()
+        $downloadExit = $process.ExitCode
+        $process.Dispose()
+        if ($downloadExit -ne 0) { throw "Download failed: $($entry.file). Partial file retained; proxy fallback requires -UseProxy." }
         if ((Get-FileHash -LiteralPath $part -Algorithm SHA256).Hash.ToLowerInvariant() -ne $entry.sha256) { throw "Downloaded digest differs: $($entry.file)" }
         Move-Item -LiteralPath $part -Destination $target
     }
