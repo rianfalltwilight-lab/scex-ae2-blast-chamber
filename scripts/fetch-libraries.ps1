@@ -20,7 +20,7 @@ foreach ($entry in $manifest) {
         $part = "$target.part"
         if (Test-Path -LiteralPath $part) { throw "Incomplete download exists: $part; inspect before retrying" }
         $argsList = @('--disable')
-        if (!$UseProxy) { $argsList += @('--noproxy=*') }
+        if (!$UseProxy) { $argsList += @('--noproxy', '*') }
         $argsList += @('--silent', '--show-error', '--fail', '--location', '--max-redirs', '5', '--connect-timeout', '10', '--speed-limit', '1024', '--speed-time', '30', '--max-time', '300', '--retry', '0', '--proto', '=https', '--proto-redir', '=https', '--output', $part, '--url', $entry.url)
         $curl = if ($IsWindows) { 'curl.exe' } else { 'curl' }
         $start = [Diagnostics.ProcessStartInfo]::new()
