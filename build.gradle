@@ -31,7 +31,12 @@ dependencies {
     runtimeOnly files('libs/jei-1.21.1-neoforge-19.44.0.405.jar')
     if (providers.gradleProperty('withDG').isPresent()) runtimeOnly fileTree(dir: 'integration-libs', include: ['*.jar'])
 }
-dependencyLocking { lockAllConfigurations() }
+dependencyLocking {
+    lockAllConfigurations()
+    if (System.getProperty('os.name').toLowerCase(java.util.Locale.ROOT).contains('linux')) {
+        lockFile = file('gradle-linux.lockfile')
+    }
+}
 tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
 tasks.withType(Jar).configureEach { preserveFileTimestamps = false; reproducibleFileOrder = true }
 tasks.named('processResources') { inputs.property 'version', project.version; filesMatching('META-INF/neoforge.mods.toml') { expand version: project.version } }

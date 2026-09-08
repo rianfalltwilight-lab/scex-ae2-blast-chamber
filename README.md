@@ -66,7 +66,7 @@ Minecraft 1.21.1 / NeoForge 21.1.248 / Java 21 / AE2 19.2.17 的独立附属。�
 python tools/validate_resources.py
 ```
 
-Linux/macOS 使用 `./gradlew`。缓存齐全后可使用 `--offline`。Gradle 8.8、ModDevGradle 2.0.116 与 NeoForge 21.1.248 均固定，编译前校验 DEPENDENCIES.json。下载脚本默认绕过应用代理；受阻时可显式使用 `-UseProxy`，不改全局配置。
+Linux 使用 `./gradlew`。缓存齐全后可使用 `--offline`。Gradle 8.8、ModDevGradle 2.0.116 与 NeoForge 21.1.248 均固定；Linux 使用独立锁文件保留同版本的 epoll 本地库，编译前校验 DEPENDENCIES.json。下载脚本默认绕过应用代理；受阻时可显式使用 `-UseProxy`，不改全局配置。
 
 可选 DG 验证使用 `-PwithDG=true`，自行按 DEPENDENCIES.json 准备 integration-libs 中的精确文件；这些集成库不随仓库分发。`src/gametest` 是独立测试模组，probe JAR 不得放入玩家 mods。原始图与生成工具位于 art/ 和 tools/。
 
