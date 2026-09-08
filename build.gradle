@@ -1,0 +1,60 @@
+plugins { id 'java-library'; id 'net.neoforged.moddev' version '2.0.116' }
+group = 'cn.scex'; version = mod_version
+base { archivesName = 'ae2-blast-chamber-1.21.1-neoforge' }
+java { toolchain.languageVersion = JavaLanguageVersion.of(21); withSourcesJar() }
+repositories { mavenCentral(); maven { url = 'https://maven.blamejared.com' } }
+sourceSets {
+    gametest { compileClasspath += sourceSets.main.compileClasspath + sourceSets.main.output; runtimeClasspath += output + compileClasspath + sourceSets.main.runtimeClasspath }
+}
+configurations { gametestImplementation.extendsFrom implementation; gametestRuntimeOnly.extendsFrom runtimeOnly }
+neoForge {
+    version = '21.1.248'
+    mods {
+        ae2blast { sourceSet sourceSets.main }
+        ae2blast_test { sourceSet sourceSets.gametest }
+    }
+    runs {
+        client { client() }
+        server { server(); programArgument '--nogui' }
+        gameTestServer {
+            type = 'gameTestServer'
+            gameDirectory = file(providers.gradleProperty('blastRunDir').getOrElse('test-runs/gametest'))
+            systemProperty 'neoforge.enabledGameTestNamespaces', 'ae2blast_test'
+            loadedMods = [mods.ae2blast, mods.ae2blast_test]
+        }
+    }
+}
+dependencies {
+    implementation files('libs/appliedenergistics2-19.2.17.jar')
+    runtimeOnly files('libs/guideme-21.1.17.jar')
+    compileOnly files('libs/jei-1.21.1-neoforge-19.44.0.405.jar')
+    runtimeOnly files('libs/jei-1.21.1-neoforge-19.44.0.405.jar')
+    if (providers.gradleProperty('withDG').isPresent()) runtimeOnly fileTree(dir: 'integration-libs', include: ['*.jar'])
+}
+dependencyLocking { lockAllConfigurations() }
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
+tasks.withType(Jar).configureEach { preserveFileTimestamps = false; reproducibleFileOrder = true }
+tasks.named('processResources') { inputs.property 'version', project.version; filesMatching('META-INF/neoforge.mods.toml') { expand version: project.version } }
+tasks.named('jar', Jar) { from(project.files('LICENSE', 'NOTICE.md')) { into 'META-INF' } }
+tasks.register('probeJar', Jar) { archiveClassifier = 'gametest'; from sourceSets.gametest.output }
+
+tasks.register('verifyLibraries') {
+    group = 'verification'
+    description = 'Verify the exact, unmodified upstream library JARs used for this build.'
+    doLast {
+        def manifest = new groovy.json.JsonSlurper().parse(file('DEPENDENCIES.json'))
+        manifest.files.findAll { !it.optional || providers.gradleProperty('withDG').isPresent() }.each { entry ->
+            def jar = file(entry.path)
+            if (!jar.isFile()) throw new GradleException("Missing pinned library: ${entry.path}; see DEPENDENCIES.json")
+            def digest = java.security.MessageDigest.getInstance('SHA-256')
+            jar.withInputStream { stream ->
+                byte[] buffer = new byte[65536]
+                int n
+                while ((n = stream.read(buffer)) > 0) digest.update(buffer, 0, n)
+            }
+            if (digest.digest().encodeHex().toString() != entry.sha256) throw new GradleException("Library checksum mismatch: ${entry.path}")
+        }
+    }
+}
+tasks.withType(JavaCompile).configureEach { dependsOn tasks.named('verifyLibraries') }
+tasks.named('check') { dependsOn tasks.named('verifyLibraries') }

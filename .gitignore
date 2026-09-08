@@ -1,0 +1,11 @@
+.gradle/
+build/
+run/
+test-runs/
+reference/
+releases/
+
+libs/
+integration-libs/
+__pycache__/
+*.part

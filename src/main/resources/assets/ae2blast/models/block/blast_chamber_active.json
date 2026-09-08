@@ -1,0 +1,84 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "atlas": "ae2blast:block/chamber_atlas",
+    "active": "ae2blast:block/chamber_active",
+    "particle": "ae2blast:block/chamber_atlas"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#active",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "cullface": "north"
+        },
+        "south": {
+          "texture": "#atlas",
+          "uv": [
+            8,
+            0,
+            16,
+            8
+          ],
+          "cullface": "south"
+        },
+        "west": {
+          "texture": "#atlas",
+          "uv": [
+            8,
+            0,
+            16,
+            8
+          ],
+          "cullface": "west"
+        },
+        "east": {
+          "texture": "#atlas",
+          "uv": [
+            8,
+            0,
+            16,
+            8
+          ],
+          "cullface": "east"
+        },
+        "up": {
+          "texture": "#atlas",
+          "uv": [
+            0,
+            8,
+            8,
+            16
+          ],
+          "cullface": "up"
+        },
+        "down": {
+          "texture": "#atlas",
+          "uv": [
+            0,
+            8,
+            8,
+            16
+          ],
+          "cullface": "down"
+        }
+      }
+    }
+  ]
+}

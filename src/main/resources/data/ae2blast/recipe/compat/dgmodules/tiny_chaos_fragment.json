@@ -1,0 +1,15 @@
+{
+  "neoforge:conditions": [
+    {"type": "neoforge:mod_loaded", "modid": "dgmodules"},
+    {"type": "neoforge:mod_loaded", "modid": "draconicevolution"}
+  ],
+  "type": "ae2blast:blasting",
+  "ingredients": [
+    {"ingredient": {"item": "draconicevolution:dragon_heart"}, "count": 1},
+    {"ingredient": {"item": "minecraft:nether_star"}, "count": 1},
+    {"ingredient": {"item": "minecraft:diamond"}, "count": 1}
+  ],
+  "result": {"id": "draconicevolution:small_chaos_frag", "count": 2},
+  "charges": 1,
+  "ticks": 60
+}

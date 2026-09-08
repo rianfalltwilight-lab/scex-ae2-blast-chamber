@@ -1,0 +1,27 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="MIT"
+[[mods]]
+modId="ae2blast"
+version="${version}"
+displayName="AE2 Blast Chamber"
+authors="SCEX"
+description='''A contained explosive recipe machine with automatic AE2 recipe discovery and datapack support.'''
+[[dependencies.ae2blast]]
+modId="neoforge"
+type="required"
+versionRange="[21.1.248,21.2)"
+ordering="NONE"
+side="BOTH"
+[[dependencies.ae2blast]]
+modId="minecraft"
+type="required"
+versionRange="[1.21.1]"
+ordering="NONE"
+side="BOTH"
+[[dependencies.ae2blast]]
+modId="ae2"
+type="required"
+versionRange="[19.2.17,19.3)"
+ordering="AFTER"
+side="BOTH"

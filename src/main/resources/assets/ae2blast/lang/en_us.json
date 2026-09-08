@@ -1,0 +1,17 @@
+{
+  "block.ae2blast.blast_chamber": "ME Blast Chamber",
+  "itemGroup.ae2blast": "AE2 Blast Chamber",
+  "gui.ae2blast.on": "ON",
+  "gui.ae2blast.off": "OFF",
+  "gui.ae2blast.fuel": "Fuel",
+  "gui.ae2blast.charges": "Stored blast: %s",
+  "gui.ae2blast.status.0": "Awaiting recipe",
+  "gui.ae2blast.status.1": "Processing",
+  "gui.ae2blast.status.2": "Output full",
+  "gui.ae2blast.status.3": "Redstone paused",
+  "gui.ae2blast.status.4": "Disabled",
+  "gui.ae2blast.status.5": "Need explosives",
+  "gui.ae2blast.status.6": "Finding recipe",
+  "jei.ae2blast.title": "Contained Explosion",
+  "jei.ae2blast.cost": "%s charges / %s ticks"
+}

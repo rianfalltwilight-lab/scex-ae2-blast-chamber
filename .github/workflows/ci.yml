@@ -1,0 +1,38 @@
+name: Build and validate
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: gradle
+      - name: Prepare pinned upstream libraries
+        shell: pwsh
+        run: ./scripts/fetch-libraries.ps1
+      - name: Build
+        run: |
+          chmod +x gradlew
+          ./gradlew --no-daemon --max-workers=2 build
+      - name: Validate resources and runtime boundary
+        run: python tools/validate_resources.py
+      - name: Run minimal GameTests
+        run: |
+          mkdir -p test-runs/gametest
+          echo 'eula=true' > test-runs/gametest/eula.txt
+          ./gradlew --no-daemon --max-workers=2 runGameTestServer
+      - uses: actions/upload-artifact@v6
+        with:
+          name: ae2blast-${{ github.sha }}
+          path: build/libs/*.jar
+          if-no-files-found: error

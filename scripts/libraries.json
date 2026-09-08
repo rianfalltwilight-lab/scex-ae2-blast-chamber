@@ -1,0 +1,26 @@
+[
+  {
+    "project": "XxWD5pD3",
+    "version": "19.2.17",
+    "file": "appliedenergistics2-19.2.17.jar",
+    "sha1": "49c18d6a4af487957d7e5a6ad5dcbf71090b8e14",
+    "url": "https://cdn.modrinth.com/data/XxWD5pD3/versions/kfyIqgJ6/appliedenergistics2-19.2.17.jar",
+    "sha256": "460d779a0609b81409907d9956de8f6f70a1b0912257e3e5c3c7e75ac9630e95"
+  },
+  {
+    "project": "Ck4E7v7R",
+    "version": "21.1.17",
+    "file": "guideme-21.1.17.jar",
+    "sha1": "060e374f578db694a0b8f3ad409bd424cae86359",
+    "url": "https://cdn.modrinth.com/data/Ck4E7v7R/versions/rduAfwb7/guideme-21.1.17.jar",
+    "sha256": "d012aca7275e2186aa223bf180b643164e5360d6433385fb12951f369f0b8c84"
+  },
+  {
+    "project": "u6dRKJwZ",
+    "version": "19.44.0.405",
+    "file": "jei-1.21.1-neoforge-19.44.0.405.jar",
+    "sha1": "cede8db343093e26a82531a59e537c039f6b5e07",
+    "url": "https://cdn.modrinth.com/data/u6dRKJwZ/versions/TwopcqFb/jei-1.21.1-neoforge-19.44.0.405.jar",
+    "sha256": "b2fb92ef7804733ed5156268cafe2bd9743ab1269c1e8189163be2a2f669b225"
+  }
+]

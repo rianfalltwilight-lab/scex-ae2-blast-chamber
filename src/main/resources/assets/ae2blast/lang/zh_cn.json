@@ -1,0 +1,17 @@
+{
+  "block.ae2blast.blast_chamber": "ME 爆炸配方机",
+  "itemGroup.ae2blast": "AE2 爆炸配方机",
+  "gui.ae2blast.on": "开启",
+  "gui.ae2blast.off": "关闭",
+  "gui.ae2blast.fuel": "燃料",
+  "gui.ae2blast.charges": "剩余爆炸当量：%s",
+  "gui.ae2blast.status.0": "等待匹配配方",
+  "gui.ae2blast.status.1": "正在爆炸合成",
+  "gui.ae2blast.status.2": "产出空间不足",
+  "gui.ae2blast.status.3": "红石信号暂停",
+  "gui.ae2blast.status.4": "已关闭",
+  "gui.ae2blast.status.5": "需要火药或 TNT",
+  "gui.ae2blast.status.6": "正在寻找配方",
+  "jei.ae2blast.title": "密闭爆炸合成",
+  "jei.ae2blast.cost": "%s 当量 / %s 刻"
+}
